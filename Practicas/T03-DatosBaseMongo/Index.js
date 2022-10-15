@@ -23,8 +23,9 @@ try {
         Numero_Porciones:Number
     });   
     
-    //Ingreso de los datos, A el modelo Plato, Paciente, y Registro
-    /*const plato_1 =  new Plato({Nombre_de_Plato:"Harina "});
+    //Ingreso de los datos, a el modelo Plato, Paciente, y Registro
+    //Gurdando datos con ".save"
+    const plato_1 =  new Plato({Nombre_de_Plato:"Harina "});
     const Guardar_Plato = await  plato_1.save();
 
     const paciente_1 = new Paciente({Nombre:"Carla",Identificacion:"131245191",Edad:18,Altura:160});
@@ -40,7 +41,7 @@ try {
 
     });
     const Guardar_Registro = await registro_1.save();
-*/
+
 
     //Imprimir datos de plato
    const Imprimir_platos = await Plato.find();
@@ -48,23 +49,20 @@ try {
     console.log("Nombre del Plato: ",Imprimir_platos[i].Nombre_de_Plato);
 
    }
-    //Imprimir datos de Imprimir_Pacientes
-
+    //Imprimir datos de Pacientes
    const imprimir_Pacientes = await Paciente.find();
    let i=0;
    while(i<imprimir_Pacientes.length){
     console.log("Nombre del Paciente: ",imprimir_Pacientes[i].Nombre," Con identificacion: ",imprimir_Pacientes[i].Identificacion,", Edad:",imprimir_Pacientes[i].Edad," Y altura:",imprimir_Pacientes[i].Altura);
     i++;
    }
-
-
+   
+    //Imprimir datos de Registros
    const imprimir_registros = await Registro.find();
-    do{
-    console.log("Fecha: ",imprimir_registros[i].Fecha ," - ",imprimir_registros[i].Hora,", Edad: ",imprimir_Pacientes[i].Edad,", Numero de calorias: ",imprimir_registros[i].Numero_De_Calorias,"Y sus Porciones: ",imprimir_registros[i].Numero_Porciones);
-    i++;
-   }while(i<imprimir_registros.length) 
-
-       
+    imprimir_registros.forEach(registro => {
+        console.log("hora y fecha de registrado" ,registro.Fecha," - ",registro.Hora," sus Numero de calorias: ",registro.Numero_De_Calorias,"  y sus Porciones",registro.Numero_Porciones)
+    });    
+   
 } catch (error) {
     console.log(error.message);       
 }
