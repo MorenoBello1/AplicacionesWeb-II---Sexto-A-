@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+
+  platos:
+    build: ./microservices/plato-service
+    depends_on:
+            - mongopla
+    environment:
+            - MONGODB_CNN=mongodb://mongopla:27017/plato
+  mongopla: 
+    container_name: mimongoplatos
+    image: mongo
+    ports: 
+        - "27017:27017"
+
+
+  pacientes:
+    build: ./microservices/paciente-service
+    depends_on:
+          - mongopac
+    environment:
+          - MONGODB_URI=mongodb://mongopac:27017/paciente
+  mongopac: 
+      container_name: mimongopacientes
+      image: mongo
+      ports: 
+        - "27018:27017"
+
+  nginx:
+      image: nginx:latest
+      ports:
+        - "8081:8081"
+      volumes:
+        - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      depends_on:
+        - platos
+        - pacientes
+
+
+    
