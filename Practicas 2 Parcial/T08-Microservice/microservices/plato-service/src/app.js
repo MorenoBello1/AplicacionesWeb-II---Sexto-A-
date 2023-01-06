@@ -1,16 +1,16 @@
-
+//importaciones de librerias
 const express=require("express")
 const platoSchema=require("./model/plato")
 const router=express.Router()
 
 
-
+//peticion get para obtener los platos 
 router.get("/platos",(req, res)=>{
     platoSchema.find()
     .then((data)=>res.send(data))
     .catch((error)=>res.send({message:error}))
 })
-
+//peticion post para crear un nuevo plato 
 router.post("/platos",(req,res)=>{
     const plato=platoSchema(req.body)
     plato.save()
@@ -18,7 +18,7 @@ router.post("/platos",(req,res)=>{
     .catch((error)=>res.send({message:error}))
 })
 
-
+//peticion get para obtener un solo dato de platos 
 router.get("/platos/:id", (req, res)=>{
 const {id}=req.params
 platoSchema.findById(id)
@@ -26,7 +26,7 @@ platoSchema.findById(id)
 .catch((error)=>res.send({message:error}))
 })
 
-
+//peticion put para modificar un dato 
 router.put("/platos/:id",(req, res)=>{
 const {id}=req.params
 const {descripcion}=req.body
@@ -35,7 +35,7 @@ platoSchema.updateOne({_id: id}, {$set: {descripcion}})
 .catch((error)=> res.send({message:error}))
 })
 
-
+//peticion delete para eliminar un plato ingresado 
 router.delete("/platos/:id",(req, res)=>{
     const {id}=req.params
     platoSchema.deleteOne({_id:id})
